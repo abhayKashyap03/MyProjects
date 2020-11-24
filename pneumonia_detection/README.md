@@ -9,7 +9,7 @@ The model is trained on two classes of such lung x-rays - normal and pneumonic -
 <br />
 Parameters : 1,119,554 <br />
 Accuracy : ~83% <br />
-Model file is included, accuracy can be improved. <br />
+Model file is included, accuracy can be improved. (model.h5 is better than model2.h5 - better accuracy, lesser loss) <br />
 
 <br />
 Code can be run as GUI or CLI.
