@@ -5,10 +5,13 @@ import requests
 import sys
 
 API = 'http://api.serpstack.com/search?access_key=a62765649ce08acb89966a11fa8c2df0&query={}'
-empty_msg = 'Please enter a word.'
+empty_msg = 'Please enter text.'
 inp = ''
 
-while inp != 'exit':
+while True:
+    do = input("Search or exit : ")
+    if do == 'exit' :
+        sys.exit()
     inp = input("\nEnter word/phrase : ").lower()
     if inp == 'exit':
         sys.exit()

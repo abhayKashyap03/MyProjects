@@ -13,7 +13,10 @@ phrase_msg = 'Definitions for phrases are not available.'
 symbols_msg = 'Definitions of words with symbols are not possible.'
 inp = ''
 
-while inp != "exit":
+while True:
+    inp = input("Enter command : ").lower()
+    if inp == 'exit':
+        sys.exit()
     word = input("\nEnter word : ").lower()
     if len(word.split(' ')) > 1:
         print(phrase_msg)
@@ -26,7 +29,6 @@ while inp != "exit":
         print(empty_msg)
         continue
     response = json.loads(requests.request('GET', API.format(word)).content.decode('utf-8'))
-    inp = input("Enter command : ").lower()
     if inp == 'synonyms':
         syns = response[0]['def'][0]['sseq'][0][0][1]['syn_list'][0]
         if not syns:
@@ -65,5 +67,3 @@ while inp != "exit":
             print(error_msg)
             continue
         print(defs[1])
-    if inp == 'exit':
-        sys.exit()
