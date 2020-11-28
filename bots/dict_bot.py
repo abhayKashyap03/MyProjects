@@ -1,14 +1,18 @@
 # Dictionary Bot - defines input word
 
-import json, requests, sys, string
+import json
+import requests
+import sys
+import string
+
 
 API = 'https://dictionaryapi.com/api/v3/references/thesaurus/json/{}?key=b86d6042-e481-4e87-9463-6d804d576778'
 error_msg = 'Could not load feature or feature not present for input word.'
 empty_msg = 'Please enter a word.'
 phrase_msg = 'Definitions for phrases are not available.'
 symbols_msg = 'Definitions of words with symbols are not possible.'
-
 inp = ''
+
 while(inp != "exit"):
     word = input("\nEnter word : ").lower()
     if len(word.split(' ')) > 1:
