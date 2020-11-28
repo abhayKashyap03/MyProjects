@@ -1,4 +1,4 @@
-# Dictionary Bot - defines input word
+# Dictionary Bot - shows definition, synonyms, antonyms and other features related to the input word
 
 import json
 import requests
@@ -13,7 +13,7 @@ phrase_msg = 'Definitions for phrases are not available.'
 symbols_msg = 'Definitions of words with symbols are not possible.'
 inp = ''
 
-while(inp != "exit"):
+while inp != "exit":
     word = input("\nEnter word : ").lower()
     if len(word.split(' ')) > 1:
         print(phrase_msg)
