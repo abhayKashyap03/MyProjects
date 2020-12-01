@@ -1,27 +1,31 @@
+# 2-layer Fully-connected Custom Neural Network - building neural network from scratch
+
 import numpy as np
 
 class NeuralNet:
-    def __init__(self, x, y, weights1, bias1, weights2, bias2, weights3, bias3):
-        # Inputs and Target Outputs
-        self.x = x
-        self.y = y
-        self.training_size = self.x.shape[0]
+    def __init__(self, x, y, params):
+        self.x = x  # input data
+        self.y = y  # target output
+        self.training_size = params['training_size']  # total number of data points
 
-        self.n = 100  # number of data points
-        self.c = 3  # number of classes
+        self.n = params['n']  # number of data points of each class
         self.out = np.zeros(self.y.shape)  # predicted output
-        self.lr = 1  # learning rate for model
-        self.reg_strength = 0.05
-        self.activation = self.softmax
+        self.lr = params['lr']  # learning rate for model
+        self.reg_strength = params['reg_strength']  # regularization strength
+        self.activation = self.ReLU  # Activation used is ReLU, can also use Leaky ReLU, Sigmoid, Tanh
 
-        # Weights and Bias for Hidden Layers
-        self.weights1 = weights1
-        self.bias1 = bias1
-        self.weights2 = weights2
-        self.bias2 = bias2
-        self.weights3 = weights3
-        self.bias3 = bias3
+        # Weights and Biases for Hidden Layers
+        # Layer 1
+        self.weights1 = params['weights1']
+        self.bias1 = params['bias1']
+        # Layer 2
+        self.weights2 = params['weights2']
+        self.bias2 = params['bias2']
+        # Output
+        self.weights3 = params['weights3']
+        self.bias3 = params['bias3']
 
+    # Activation Functions
     def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
 
@@ -32,11 +36,13 @@ class NeuralNet:
         exp = np.exp(x)
         return exp / np.sum(exp, axis=1, keepdims=True)
 
+    # Feed-forward Computation
     def feedforward(self):
         self.layer1 = self.activation(np.dot(self.x, self.weights1) + self.bias1)
         self.layer2 = self.activation(np.dot(self.layer1, self.weights2) + self.bias2)
         self.out = np.dot(self.layer2, self.weights3) + self.bias3
 
+    # Calculating Probabilities of Each Predicted Output and Backpropagation of Weights and Biases
     def backprop(self):
         self.prob = self.softmax(self.out)
         d_out = self.prob.copy()
@@ -56,6 +62,7 @@ class NeuralNet:
         dW1 = np.dot(self.x.T, dhidden1)
         dB1 = np.sum(dhidden1, axis=0, keepdims=True)
 
+        # Updating Weights and Biases
         self.weights3 -= self.lr * dW3
         self.weights2 -= self.lr * dW2
         self.weights1 -= self.lr * dW1
@@ -63,6 +70,7 @@ class NeuralNet:
         self.bias2 -= self.lr * dB2
         self.bias1 -= self.lr * dB1
 
+    # Calculating Loss - Cross Entropy + L2 Regularization
     def loss(self):
         correct_prob = self.y * np.log(self.prob[range(self.training_size), self.y])
         loss = -np.sum(correct_prob) / self.training_size
