@@ -8,7 +8,6 @@ class NeuralNet:
         self.y = y  # target output
         self.training_size = params['training_size']  # total number of data points
 
-        self.n = params['n']  # number of data points of each class
         self.out = np.zeros(self.y.shape)  # predicted output
         self.lr = params['lr']  # learning rate for model
         self.reg_strength = params['reg_strength']  # regularization strength

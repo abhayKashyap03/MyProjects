@@ -47,7 +47,7 @@ bias3 = np.zeros((1, c))
 
 
 # Parameters for Neural Network
-params = {'n': n, 'training_size': training_size, 'lr': lr, 'reg_strength': reg_strength, 'weights1': weights1, 'bias1': bias1, 'weights2': weights2, 'bias2': bias2, 'weights3': weights3,
+params = {'training_size': training_size, 'lr': lr, 'reg_strength': reg_strength, 'weights1': weights1, 'bias1': bias1, 'weights2': weights2, 'bias2': bias2, 'weights3': weights3,
           'bias3': bias3}
 
 
